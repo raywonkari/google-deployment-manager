@@ -1,0 +1,21 @@
+imports:
+    - path: cloud_function.py
+    - path: function/index.js
+    
+resources:
+    - name: function
+      type: cloud_function.py
+      properties:
+        codeLocation: function/
+        codeBucket: my-cloud-function-bucket-raywon
+        codeBucketObject: function.zip
+        location: us-central1
+        timeout: 60s
+        runtime: nodejs8
+        availableMemoryMb: 256
+        entryPoint: handler
+
+outputs:
+    - name: function-code
+      value: $(ref.function.sourceArchiveUrl)
+    
